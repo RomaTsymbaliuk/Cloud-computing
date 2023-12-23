@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['protected-bayou-40023-87abb51fa93b.herokuapp.com', '127.0.0.1']
 
-
 # Application definition
 
 INSTALLED_APPS = [
