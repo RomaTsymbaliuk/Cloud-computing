@@ -33,8 +33,6 @@ def entry_add(request):
     return HttpResponse(template.render(context, request))
 
 def entry_delete(request, item_id):
-    print('Called entry_delete : ', item_id)
-
     object = Entry.objects.get(id=item_id)
     object.delete()
     context = {
