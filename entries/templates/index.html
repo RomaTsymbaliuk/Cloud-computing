@@ -7,12 +7,14 @@
 <body>
 <h1>Entries</h1>
 <ul>
+    {% if myentries %}
   {% for x in myentries %}
     <li>{{ x.date }} {{ x.purpose }} {{ x.time_on_task }}
         <a href="{% url 'entry_update' item_id=x.id %}">Update Entry</a>
         <a href="{% url 'entry_delete' item_id=x.id %}">Delete Entry</a>
     </li>
   {% endfor %}
+    {% endif %}
 </ul>
 <a href="/entries/add/">Add Entry</a>
 </body>

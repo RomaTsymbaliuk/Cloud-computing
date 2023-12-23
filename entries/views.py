@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 def entries(request):
     myentries = Entry.objects.all().values()
     template = loader.get_template('index.html')
+    context = {}
 
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -16,9 +17,14 @@ def entries(request):
             form.save()
         else:
             print(form.errors)
-    context = {
-        'myentries': myentries,
-    }
+    if myentries is not None:
+        context = {
+            'myentries': myentries
+        }
+    else:
+        context = {
+            'myentries': None,
+        }
     return HttpResponse(template.render(context, request))
 
 def entry_add(request):
