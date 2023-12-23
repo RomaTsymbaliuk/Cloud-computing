@@ -8,8 +8,9 @@
 <h1>Entries</h1>
 <ul>
   {% for x in myentries %}
-    <li>{{ x.firstname }} {{ x.lastname }}</li>
+    <li>{{ x.date }} {{ x.purpose }} {{ x.time_on_task }} <button>Delete Entry</button></li>
   {% endfor %}
 </ul>
+<a href="add/">Add Entry</a>
 </body>
 </html>
