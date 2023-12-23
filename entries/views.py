@@ -9,26 +9,22 @@ from django.urls import reverse_lazy
 def entries(request):
     myentries = Entry.objects.all().values()
     template = loader.get_template('index.html')
+
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
     context = {
         'myentries': myentries,
     }
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        print('POST method on entries')
-        if form.is_valid():
-            form.save()
-            print(form.cleaned_data['date'])
-            print(form.cleaned_data['purpose'])
-            print(form.cleaned_data['time_on_task'])
-        else:
-            print('Form is not valid')
-            print(form.errors)
     return HttpResponse(template.render(context, request))
 
 def entry_add(request):
     template = loader.get_template('add_entry.html')
     context = {
-
+        "object": None
     }
     return HttpResponse(template.render(context, request))
 
@@ -39,4 +35,24 @@ def entry_delete(request, item_id):
 
     }
     return redirect('entries')
+
+def entry_update(request, item_id):
+    object = Entry.objects.get(id=item_id)
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            keys = form.fields.keys()
+            for key in keys:
+                val = form.cleaned_data[key]
+                setattr(object, key, val)
+            object.save()
+            return redirect('entries')
+        else:
+            print(form.errors)
+            return redirect('entries')
+    template = loader.get_template('update.html')
+    context = {
+        "object": object
+    }
+    return HttpResponse(template.render(context, request))
 # Create your views here.

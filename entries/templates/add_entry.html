@@ -7,11 +7,11 @@
 <body>
 <form action="/entries/" method="post"> {% csrf_token %}
     <label for="date">Enter date in format yyyy-mm-dd: </label>
-    <input id="date" type="text" name="date">
-    <label for="purpose">Enter purpose: </label>
-    <input id="purpose" type="text" name="purpose">
+    <input id="date" type="text" name="date" value="1999-12-23">
+    <label for="purpose" >Enter purpose: </label>
+    <input id="purpose" type="text" name="purpose" value="Debugging ARG-0000">
     <label for="time_on_task">Enter time on task</label>
-    <input id="time_on_task" type="int" name="time_on_task">
+    <input id="time_on_task" type="int" name="time_on_task" value="9">
     <input type="submit" value="OK">
 </form>
 </body>

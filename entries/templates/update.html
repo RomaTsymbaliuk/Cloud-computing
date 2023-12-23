@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add entry</title>
+</head>
+<body>
+<form action="/entries/update/{{ object.id }}/" method="post"> {% csrf_token %}
+    <label for="date">Enter date in format yyyy-mm-dd: </label>
+    <input id="date" type="text" name="date" {% if object %} value="{{ object.date }}" {% endif %}>
+    <label for="purpose" >Enter purpose: </label>
+    <input id="purpose" type="text" name="purpose" {% if object %} value="{{ object.purpose }}" {% endif %}>
+    <label for="time_on_task">Enter time on task</label>
+    <input id="time_on_task" type="int" name="time_on_task" {% if object %} value="{{ object.time_on_task }}" {% endif %}>
+    <input type="submit" value="OK">
+</form>
+</body>
+</html>
