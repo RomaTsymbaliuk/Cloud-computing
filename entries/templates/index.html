@@ -5,7 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hello World!</h1>
-<p>Welcome to my first Django project!</p>
+<h1>Entries</h1>
+<ul>
+  {% for x in myentries %}
+    <li>{{ x.firstname }} {{ x.lastname }}</li>
+  {% endfor %}
+</ul>
 </body>
 </html>
