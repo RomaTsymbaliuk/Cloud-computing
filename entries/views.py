@@ -3,8 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import Entry
 from .forms import RegisterForm
-from django.views.generic import DeleteView
-from django.urls import reverse_lazy
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializer import DataSerializer
 
 def entries(request):
     myentries = Entry.objects.all().values()
@@ -61,4 +62,12 @@ def entry_update(request, item_id):
         "object": object
     }
     return HttpResponse(template.render(context, request))
+
+@api_view(['GET'])
+def get_data(request):
+    app = Entry.objects.all()
+    serializer = DataSerializer(app, many=True)
+    return Response(serializer.data)
+
+
 # Create your views here.
