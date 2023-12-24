@@ -49,17 +49,7 @@ Created RESTfull HTTP API with Django REST Framework. Functions that are availab
 
 2. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_post/ - Add time entry via POST request:
 
-![img_7.png](images/img_7.png)
-
-Let's try to add entry with params:
-
-![img_9.png](images/img_9.png)
-
-{"date":"2023-11-01", "purpose":"Debugging", "time_on_task":4}
-
-And as result:
-
-![img.png](images/img.png)
+Working on POST request. Locally works fine. Doesn't work on heroku.
 
 3. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=<time_on_task>
 
@@ -68,3 +58,11 @@ Get entry by time_on_task param
 For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=190 returns:
 
 ![img_10.png](images/img_10.png)
+
+4. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_purpose/?purpose=<purpose>
+
+Get entry by purpose param
+
+For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=190 returns:
+
+![img.png](images/img.png)
