@@ -65,4 +65,4 @@ Get entry by purpose param
 
 For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=190 returns:
 
-![img.png](images/img.png)
+![img_2.png](img_2.png)
