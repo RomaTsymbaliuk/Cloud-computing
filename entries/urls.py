@@ -10,5 +10,6 @@ urlpatterns = [
     path('entries/api_get/', views.get_data, name = "get_data"),
     path('entries/api_post/', views.post_data, name = "post_data"),
     path('entries/api_get_by_time/', views.get_data_filter, name = "get_data_filter"),
+    path('entries/api_get_by_purpose/', views.get_data_by_purpose, name = "get_data_by_purpose"),
     path('', views.entries, name='entries')
 ]

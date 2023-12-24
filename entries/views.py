@@ -86,3 +86,12 @@ def get_data_filter(request):
     app = Entry.objects.get(time_on_task=time)
     serializer = DataSerializer(app)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def get_data_by_purpose(request):
+    purp = request.query_params.get('purpose')
+    print("purp : ", purp)
+    app = Entry.objects.all().filter(purpose=purp)
+    print(app)
+    serializer = DataSerializer(app, many=True)
+    return Response(serializer.data)
