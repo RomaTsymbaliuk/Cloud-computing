@@ -7,7 +7,7 @@ Created hello-world application. Added app to the heroku.
 Created task time tracking system with CRUD operations. User can add time entry, delete time entry, update time
 entry.
 
-![img.png](images/img.png)
+![img.png](images/img.png)![img.png](images/img.png)
 
 Time entry form:
 
