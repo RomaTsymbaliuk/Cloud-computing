@@ -75,6 +75,8 @@ def post_data(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
+    else:
+        return redirect('entries')
 
 @api_view(['GET'])
 def get_data_filter(request):

@@ -1,21 +1,72 @@
-# Python: Getting Started
+# Lab 1
 
-A barebones Django app, which can easily be deployed to Heroku.
+Created hello-world application. Added app to the heroku.
 
-## Deploying to Heroku
+# Lab 2
 
-Using resources for this example app counts towards your usage. [Delete your app](https://devcenter.heroku.com/articles/heroku-cli-commands#heroku-apps-destroy) and [database](https://devcenter.heroku.com/articles/heroku-postgresql#removing-the-add-on) as soon as you are done experimenting to control costs.
+Created task time tracking system with CRUD operations. User can add time entry, delete time entry, update time
+entry.
 
-By default, apps use Eco dynos if you are subscribed to Eco. Otherwise, it defaults to Basic dynos. The Eco dynos plan is shared across all Eco dynos in your account and is recommended if you plan on deploying many small apps to Heroku. Learn more about our low-cost plans [here](https://blog.heroku.com/new-low-cost-plans).
+![img.png](img.png)
 
-Eligible students can apply for platform credits through our new [Heroku for GitHub Students program](https://blog.heroku.com/github-student-developer-program).
+Time entry form:
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out for instructions on how to deploy this app to Heroku and also run it locally.
+![img_1.png](img_1.png)
 
-Alternatively, you can deploy it using this Heroku Button:
+Result:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/python-getting-started)
+![img_2.png](img_2.png)
 
-For more information about using Python on Heroku, see these Dev Center articles:
+Deletion of the time entry:
 
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
+![img_3.png](img_3.png)
+
+Updating time entry:
+
+![img_4.png](img_4.png)
+
+# Lab 3
+
+Investigated quotas cloud platform Heroku. Investigated limits of heroku
+
+# Lab 4
+
+Connected application to the postgreSQL. Set DATABASE_URL variable to DATABASE_URL='postgres://u4uj5nffopolmv:pcc5e1639eb680d1cf47598ca320bee3917fa332822c7d774e898d8947c44442b@ec2-34-197-29-232.compute-1.amazonaws.com:5432/d38pa1b0lgq4h1'
+
+PostgreSQL connection on the heroku account:
+
+![img_5.png](img_5.png)
+
+Also resources and memory that was used can be found on https://data.heroku.com/datastores/acfd032c-18ac-42b9-a78c-273f70670d27
+
+# Lab 5
+
+Created RESTfull HTTP API with Django REST Framework. Functions that are available via API:
+
+1. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get/ - Returns all time entries:
+
+![img_6.png](img_6.png)
+
+2. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_post/ - Add time entry via POST request:
+
+![img_7.png](img_7.png)
+
+Let's try to add entry with params:
+
+![img_9.png](img_9.png)
+
+{    
+"date": "2023-13-01",
+"purpose": "Debugging ARG-addd",
+"time_on_task": 15
+}
+
+And as result:
+
+3. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=<time_on_task>
+
+Get entry by time_on_task param
+
+For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=190 returns:
+
+![img_10.png](img_10.png)
