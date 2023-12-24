@@ -7,23 +7,23 @@ Created hello-world application. Added app to the heroku.
 Created task time tracking system with CRUD operations. User can add time entry, delete time entry, update time
 entry.
 
-![img.png](img.png)
+![img.png](images/img.png)
 
 Time entry form:
 
-![img_1.png](img_1.png)
+![img_1.png](images/img_1.png)
 
 Result:
 
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 Deletion of the time entry:
 
-![img_3.png](img_3.png)
+![img_3.png](images/img_3.png)
 
 Updating time entry:
 
-![img_4.png](img_4.png)
+![img_4.png](images/img_4.png)
 
 # Lab 3
 
@@ -35,7 +35,7 @@ Connected application to the postgreSQL. Set DATABASE_URL variable to DATABASE_U
 
 PostgreSQL connection on the heroku account:
 
-![img_5.png](img_5.png)
+![img_5.png](images/img_5.png)
 
 Also resources and memory that was used can be found on https://data.heroku.com/datastores/acfd032c-18ac-42b9-a78c-273f70670d27
 
@@ -45,15 +45,15 @@ Created RESTfull HTTP API with Django REST Framework. Functions that are availab
 
 1. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get/ - Returns all time entries:
 
-![img_6.png](img_6.png)
+![img_6.png](images/img_6.png)
 
 2. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_post/ - Add time entry via POST request:
 
-![img_7.png](img_7.png)
+![img_7.png](images/img_7.png)
 
 Let's try to add entry with params:
 
-![img_9.png](img_9.png)
+![img_9.png](images/img_9.png)
 
 {    
 "date": "2023-13-01",
@@ -69,4 +69,4 @@ Get entry by time_on_task param
 
 For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=190 returns:
 
-![img_10.png](img_10.png)
+![img_10.png](images/img_10.png)
