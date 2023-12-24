@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
+from rest_framework.status import HTTP_400_BAD_REQUEST
+
 from .models import Entry
 from .forms import RegisterForm
 from rest_framework.response import Response
@@ -76,8 +78,7 @@ def post_data(request):
         serializer.save()
         return Response(serializer.data)
     else:
-        print('Post data incorrect')
-        return redirect('entries')
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def get_data_filter(request):
