@@ -76,6 +76,7 @@ def post_data(request):
         serializer.save()
         return Response(serializer.data)
     else:
+        print('Post data incorrect')
         return redirect('entries')
 
 @api_view(['GET'])

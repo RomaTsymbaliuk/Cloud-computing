@@ -55,13 +55,11 @@ Let's try to add entry with params:
 
 ![img_9.png](images/img_9.png)
 
-{    
-"date": "2023-13-01",
-"purpose": "Debugging ARG-addd",
-"time_on_task": 15
-}
+{"date":"2023-11-01", "purpose":"Debugging", "time_on_task":4}
 
 And as result:
+
+![img.png](images/img.png)
 
 3. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=<time_on_task>
 
