@@ -69,5 +69,16 @@ def get_data(request):
     serializer = DataSerializer(app, many=True)
     return Response(serializer.data)
 
+@api_view(['POST'])
+def post_data(request):
+    serializer = DataSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
 
-# Create your views here.
+@api_view(['GET'])
+def get_data_filter(request):
+    time = request.query_params.get('time_on_task')
+    app = Entry.objects.get(time_on_task=time)
+    serializer = DataSerializer(app)
+    return Response(serializer.data)
