@@ -25,6 +25,10 @@ Updating time entry:
 
 ![img_4.png](images/img_4.png)
 
+Gif presenting work:
+
+![](images/cloud.gif)
+
 # Lab 3
 
 Investigated quotas cloud platform Heroku. Investigated limits of heroku
