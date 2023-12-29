@@ -73,7 +73,7 @@ def entry_update(request, item_id):
     return HttpResponse(template.render(context, request))
 
 
-@api_view(['GET', 'POST', 'DELETE'])
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
 def main_method(request, item_id = None):
     time = request.query_params.get('time_on_task')
     purpose = request.query_params.get('purpose')
