@@ -126,3 +126,6 @@ def main_method(request, item_id = None):
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            message = "item_id is None"
+            return JsonResponse({'status': 'false', 'message': message}, status=500)
