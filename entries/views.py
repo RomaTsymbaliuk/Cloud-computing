@@ -77,7 +77,8 @@ def main_method(request, item_id = None):
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
     if request.method == "POST":
-        serializer = DataSerializer(data=request.data)
+        data = {'time_on_task': time, 'purpose': purpose, 'date': date, **request.data}
+        serializer = DataSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
