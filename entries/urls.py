@@ -9,6 +9,6 @@ urlpatterns = [
     path('entries/add/', views.entry_add, name='entry_add'),
     path('entriezes/', views.get_data, name = "entriezes"),
     path('entriezes/<int:item_id>/', views.get_data, name='entriezes'),
-    path('entries/api_post/', views.post_data, name = "post_data"),
+    path('entriezes/', views.post_data, name = "entriezes_post"),
     path('', views.entries, name='entries')
 ]

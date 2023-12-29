@@ -78,7 +78,6 @@ def get_data(request, item_id = None):
     date = request.query_params.get('date')
 
     if item_id is not None:
-        print('item_id : ', item_id)
         object = Entry.objects.get(id=item_id)
         serializer = DataSerializer(object)
         return Response(serializer.data)
@@ -101,6 +100,23 @@ def get_data(request, item_id = None):
 
 @api_view(['POST'])
 def post_data(request):
+    time = request.query_params.get('time_on_task')
+    purpose = request.query_params.get('purpose')
+    date = request.query_params.get('date')
+
+    if time is not None:
+        app = Entry(time_on_task=time)
+        app.save()
+    elif purpose is not None:
+        app = Entry(purpose=purpose)
+        app.save()
+    elif date is not None:
+        app = Entry(date=date)
+        app.save()
+    else:
+        app = Entry()
+        app.save()
+
     serializer = DataSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
