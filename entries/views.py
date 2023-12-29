@@ -9,7 +9,7 @@ from .forms import RegisterForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializer import DataSerializer
-
+import datetime
 
 def entries(request):
     myentries = Entry.objects.all().values()
@@ -77,42 +77,27 @@ def main_method(request, item_id = None):
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
     if request.method == "POST":
-        if time is not None:
-            app = Entry(time_on_task=time)
-            app.save()
-        elif purpose is not None:
-            app = Entry(purpose=purpose)
-            app.save()
-        elif date is not None:
-            app = Entry(date=date)
-            app.save()
-        else:
-            app = Entry()
-            app.save()
-
         serializer = DataSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-    else:
+    elif request.method == "GET":
         if item_id is not None:
             object = Entry.objects.get(id=item_id)
             serializer = DataSerializer(object)
             return Response(serializer.data)
 
+        app = Entry.objects.all()
+
         if time is not None:
-            app = Entry.objects.filter(Q(time_on_task=time))
-            serializer = DataSerializer(app, many=True)
-        elif purpose is not None:
-            app = Entry.objects.filter(Q(purpose=purpose))
-            serializer = DataSerializer(app, many=True)
-        elif date is not None:
-            app = Entry.objects.filter(Q(date=date))
-            serializer = DataSerializer(app, many=True)
-        else:
-            app = Entry.objects.all()
-            serializer = DataSerializer(app, many=True)
+            app = app.filter(Q(time_on_task=time) | Q(time_on_task__isnull=True))
+        if purpose is not None:
+            app = app.filter(Q(purpose=purpose) | Q(purpose__isnull=True))
+        if date is not None:
+            app = app.filter(Q(date=date))
+
+        serializer = DataSerializer(app, many=True)
 
         return Response(serializer.data)
