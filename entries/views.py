@@ -72,14 +72,17 @@ def get_data(request):
     date = request.query_params.get('date')
     if time != None:
         app = Entry.objects.get(time_on_task=time)
+        serializer = DataSerializer(app)
     elif purpose != None:
         app = Entry.objects.get(purpose=purpose)
+        serializer = DataSerializer(app)
     elif date != None:
         app = Entry.objects.get(date=date)
+        serializer = DataSerializer(app)
     else:
         app = Entry.objects.all()
+        serializer = DataSerializer(app, many=True)
 
-    serializer = DataSerializer(app, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
