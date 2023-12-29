@@ -112,14 +112,17 @@ def main_method(request, item_id = None):
             object.delete()
             serializer = DataSerializer(object)
             return Response(serializer.data)
+        else:
+            message = "Not found item_id"
+            return JsonResponse({'status': 'false', 'message': message}, status=500)
 
     elif request.method == "PUT":
         if item_id is not None:
             object = Entry.objects.get(id=item_id)
-            data = JSONParser().parse(request)
-            object_serializer = DataSerializer(object, data=data)
-            if object_serializer.is_valid():
-                object_serializer.save()
-                return JsonResponse(object_serializer.data)
 
-            return JsonResponse(object_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer = DataSerializer(instance=object, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
