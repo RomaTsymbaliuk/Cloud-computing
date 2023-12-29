@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -8,6 +9,7 @@ from .forms import RegisterForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializer import DataSerializer
+
 
 def entries(request):
     myentries = Entry.objects.all().values()
@@ -30,12 +32,14 @@ def entries(request):
         }
     return HttpResponse(template.render(context, request))
 
+
 def entry_add(request):
     template = loader.get_template('add_entry.html')
     context = {
         "object": None
     }
     return HttpResponse(template.render(context, request))
+
 
 def entry_delete(request, item_id):
     object = Entry.objects.get(id=item_id)
@@ -44,6 +48,7 @@ def entry_delete(request, item_id):
 
     }
     return redirect('entries')
+
 
 def entry_update(request, item_id):
     object = Entry.objects.get(id=item_id)
@@ -65,35 +70,27 @@ def entry_update(request, item_id):
     }
     return HttpResponse(template.render(context, request))
 
+
 @api_view(['GET'])
 def get_data(request):
     time = request.query_params.get('time_on_task')
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
-    if time != None:
-        app = Entry.objects.get(time_on_task=time)
-        if len(app) > 1:
-            serializer = DataSerializer(app, many=True)
-        else:
-            serializer = DataSerializer(app)
-    elif purpose != None:
-        app = Entry.objects.get(purpose=purpose)
-        if len(app) > 1:
-            serializer = DataSerializer(app, many=True)
-        else:
-            serializer = DataSerializer(app)
-    elif date != None:
-        app = Entry.objects.get(date=date)
-        if len(app) > 1:
-            serializer = DataSerializer(app, many=True)
-        else:
-            serializer = DataSerializer(app)
-        serializer = DataSerializer(app)
+    if time is not None:
+        app = Entry.objects.filter(Q(time=time))
+        serializer = DataSerializer(app, many=True)
+    elif purpose is not None:
+        app = Entry.objects.filter(Q(purpose=purpose))
+        serializer = DataSerializer(app, many=True)
+    elif date is not None:
+        app = Entry.objects.filter(Q(date=date))
+        serializer = DataSerializer(app, many=True)
     else:
         app = Entry.objects.all()
         serializer = DataSerializer(app, many=True)
 
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def post_data(request):
