@@ -114,11 +114,12 @@ def main_method(request, item_id = None):
             return Response(serializer.data)
 
     elif request.method == "PUT":
-        object = Entry.objects.get(pk=item_id)
-        data = JSONParser().parse(request)
-        object_serializer = DataSerializer(object, data=data)
-        if object_serializer.is_valid():
-            object_serializer.save()
-            return JsonResponse(object_serializer.data)
+        if item_id is not None:
+            object = Entry.objects.get(id=item_id)
+            data = JSONParser().parse(request)
+            object_serializer = DataSerializer(object, data=data)
+            if object_serializer.is_valid():
+                object_serializer.save()
+                return JsonResponse(object_serializer.data)
 
-        return JsonResponse(object_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(object_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
