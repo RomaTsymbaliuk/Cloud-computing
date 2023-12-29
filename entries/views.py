@@ -72,12 +72,22 @@ def get_data(request):
     date = request.query_params.get('date')
     if time != None:
         app = Entry.objects.get(time_on_task=time)
-        serializer = DataSerializer(app)
+        if len(app) > 1:
+            serializer = DataSerializer(app, many=True)
+        else:
+            serializer = DataSerializer(app)
     elif purpose != None:
         app = Entry.objects.get(purpose=purpose)
-        serializer = DataSerializer(app)
+        if len(app) > 1:
+            serializer = DataSerializer(app, many=True)
+        else:
+            serializer = DataSerializer(app)
     elif date != None:
         app = Entry.objects.get(date=date)
+        if len(app) > 1:
+            serializer = DataSerializer(app, many=True)
+        else:
+            serializer = DataSerializer(app)
         serializer = DataSerializer(app)
     else:
         app = Entry.objects.all()
