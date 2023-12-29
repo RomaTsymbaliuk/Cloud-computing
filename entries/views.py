@@ -71,7 +71,7 @@ def entry_update(request, item_id):
     return HttpResponse(template.render(context, request))
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def main_method(request, item_id = None):
     time = request.query_params.get('time_on_task')
     purpose = request.query_params.get('purpose')
@@ -102,3 +102,9 @@ def main_method(request, item_id = None):
         serializer = DataSerializer(app, many=True)
 
         return Response(serializer.data)
+    elif request.method == "DELETE":
+        if item_id is not None:
+            object = Entry.objects.get(id=item_id)
+            object.delete()
+            serializer = DataSerializer(object)
+            return Response(serializer.data)
