@@ -71,55 +71,48 @@ def entry_update(request, item_id):
     return HttpResponse(template.render(context, request))
 
 
-@api_view(['GET'])
-def get_data(request, item_id = None):
+@api_view(['GET', 'POST'])
+def main_method(request, item_id = None):
     time = request.query_params.get('time_on_task')
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
+    if request.method == "POST":
+        if time is not None:
+            app = Entry(time_on_task=time)
+            app.save()
+        elif purpose is not None:
+            app = Entry(purpose=purpose)
+            app.save()
+        elif date is not None:
+            app = Entry(date=date)
+            app.save()
+        else:
+            app = Entry()
+            app.save()
 
-    if item_id is not None:
-        object = Entry.objects.get(id=item_id)
-        serializer = DataSerializer(object)
+        serializer = DataSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    else:
+        if item_id is not None:
+            object = Entry.objects.get(id=item_id)
+            serializer = DataSerializer(object)
+            return Response(serializer.data)
+
+        if time is not None:
+            app = Entry.objects.filter(Q(time_on_task=time))
+            serializer = DataSerializer(app, many=True)
+        elif purpose is not None:
+            app = Entry.objects.filter(Q(purpose=purpose))
+            serializer = DataSerializer(app, many=True)
+        elif date is not None:
+            app = Entry.objects.filter(Q(date=date))
+            serializer = DataSerializer(app, many=True)
+        else:
+            app = Entry.objects.all()
+            serializer = DataSerializer(app, many=True)
+
         return Response(serializer.data)
-
-    if time is not None:
-        app = Entry.objects.filter(Q(time_on_task=time))
-        serializer = DataSerializer(app, many=True)
-    elif purpose is not None:
-        app = Entry.objects.filter(Q(purpose=purpose))
-        serializer = DataSerializer(app, many=True)
-    elif date is not None:
-        app = Entry.objects.filter(Q(date=date))
-        serializer = DataSerializer(app, many=True)
-    else:
-        app = Entry.objects.all()
-        serializer = DataSerializer(app, many=True)
-
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
-def post_data(request):
-    time = request.query_params.get('time_on_task')
-    purpose = request.query_params.get('purpose')
-    date = request.query_params.get('date')
-
-    if time is not None:
-        app = Entry(time_on_task=time)
-        app.save()
-    elif purpose is not None:
-        app = Entry(purpose=purpose)
-        app.save()
-    elif date is not None:
-        app = Entry(date=date)
-        app.save()
-    else:
-        app = Entry()
-        app.save()
-
-    serializer = DataSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    else:
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
