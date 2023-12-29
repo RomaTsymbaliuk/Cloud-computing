@@ -77,7 +77,7 @@ def get_data(request):
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
     if time is not None:
-        app = Entry.objects.filter(Q(time=time))
+        app = Entry.objects.filter(Q(time_on_task=time))
         serializer = DataSerializer(app, many=True)
     elif purpose is not None:
         app = Entry.objects.filter(Q(purpose=purpose))
