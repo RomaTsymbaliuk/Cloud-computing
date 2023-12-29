@@ -67,7 +67,18 @@ def entry_update(request, item_id):
 
 @api_view(['GET'])
 def get_data(request):
-    app = Entry.objects.all()
+    time = request.query_params.get('time_on_task')
+    purpose = request.query_params.get('purpose')
+    date = request.query_params.get('date')
+    if time != None:
+        app = Entry.objects.get(time_on_task=time)
+    elif purpose != None:
+        app = Entry.objects.get(purpose=purpose)
+    elif date != None:
+        app = Entry.objects.get(date=date)
+    else:
+        app = Entry.objects.all()
+
     serializer = DataSerializer(app, many=True)
     return Response(serializer.data)
 
@@ -79,19 +90,3 @@ def post_data(request):
         return Response(serializer.data)
     else:
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
-@api_view(['GET'])
-def get_data_filter(request):
-    time = request.query_params.get('time_on_task')
-    app = Entry.objects.get(time_on_task=time)
-    serializer = DataSerializer(app)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def get_data_by_purpose(request):
-    purp = request.query_params.get('purpose')
-    print("purp : ", purp)
-    app = Entry.objects.all().filter(purpose=purp)
-    print(app)
-    serializer = DataSerializer(app, many=True)
-    return Response(serializer.data)
