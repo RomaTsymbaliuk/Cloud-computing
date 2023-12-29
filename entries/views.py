@@ -1,7 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
+from rest_framework import status
+from rest_framework.parsers import JSONParser
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
 from .models import Entry
@@ -76,6 +78,8 @@ def main_method(request, item_id = None):
     time = request.query_params.get('time_on_task')
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
+
+
     if request.method == "POST":
         data = {'time_on_task': time, 'purpose': purpose, 'date': date, **request.data}
         serializer = DataSerializer(data=data)
@@ -108,3 +112,13 @@ def main_method(request, item_id = None):
             object.delete()
             serializer = DataSerializer(object)
             return Response(serializer.data)
+
+    elif request.method == "PUT":
+        object = Entry.objects.get(pk=item_id)
+        data = JSONParser().parse(request)
+        object_serializer = DataSerializer(object, data=data)
+        if object_serializer.is_valid():
+            object_serializer.save()
+            return JsonResponse(object_serializer.data)
+
+        return JsonResponse(object_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
