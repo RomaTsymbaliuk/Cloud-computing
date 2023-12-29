@@ -9,7 +9,7 @@
 <ul>
     {% if myentries %}
       {% for x in myentries %}
-        <li>{{ x.date }} {{ x.purpose }} {{ x.time_on_task }}
+        <li>{{ x.date }} {{ x.purpose }} {{ x.time_on_task }} id: {{ x.id }}
             <a href="{% url 'entry_update' item_id=x.id %}">Update Entry</a>
             <a href="{% url 'entry_delete' item_id=x.id %}">Delete Entry</a>
         </li>

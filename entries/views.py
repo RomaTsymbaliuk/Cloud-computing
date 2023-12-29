@@ -72,10 +72,17 @@ def entry_update(request, item_id):
 
 
 @api_view(['GET'])
-def get_data(request):
+def get_data(request, item_id = None):
     time = request.query_params.get('time_on_task')
     purpose = request.query_params.get('purpose')
     date = request.query_params.get('date')
+
+    if item_id is not None:
+        print('item_id : ', item_id)
+        object = Entry.objects.get(id=item_id)
+        serializer = DataSerializer(object)
+        return Response(serializer.data)
+
     if time is not None:
         app = Entry.objects.filter(Q(time_on_task=time))
         serializer = DataSerializer(app, many=True)
