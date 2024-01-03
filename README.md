@@ -47,15 +47,15 @@ Also resources and memory that was used can be found on https://data.heroku.com/
 
 Created RESTfull HTTP API with Django REST Framework. Functions that are available via API:
 
-1. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get/ - Returns all time entries:
+1. GET https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/ - Returns all time entries:
 
 ![img_6.png](images/img_6.png)
 
-2. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_post/ - Add time entry via POST request:
+2. POST https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/ - Add time entry via POST request:
 
 Working on POST request. Locally works fine. Doesn't work on heroku.
 
-3. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=<time_on_task>
+3. GET https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/entries/?time_on_task=<time_on_task>
 
 Get entry by time_on_task param
 
@@ -63,10 +63,10 @@ For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/ap
 
 ![img_10.png](images/img_10.png)
 
-4. https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_purpose/?purpose=<purpose>
+4. GET https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/?purpose=<purpose>
 
 Get entry by purpose param
 
-For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/api_get_by_time/?time_on_task=190 returns:
+For example: https://protected-bayou-40023-87abb51fa93b.herokuapp.com/entries/?time_on_task=190 returns:
 
 ![img_2.png](img_2.png)
